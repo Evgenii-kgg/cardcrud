@@ -14,9 +14,7 @@ function List(props) {
   
     return itemList?.map((item)=> {
         return (
-            <Link to='/posts/:id' >
             <div onClick={()=> props.onSelectItem(item.id) } >{item.content} </div>
-            </Link>
         )
     })
   

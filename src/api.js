@@ -10,11 +10,7 @@ export const netWorkService = ({ url, method, body }) => {
         'Content-Type': 'application/json',
       },
       body: name,
-    }).then((res) => res.json());
+    }).then((res) => (res.status === 200) ? res.json() : res );
   };
-
-  
-  git remote add origin https://github.com/Evgenii-kgg/cardcrud.git
-git push -u origin master
   
   

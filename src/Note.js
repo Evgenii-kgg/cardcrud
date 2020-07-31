@@ -9,10 +9,10 @@ import {
 } from "react-router-dom";
 import { netWorkService } from "./api";
 
-function Note() {
+function Note(props) {
   const [redirect, setRedirect] = useState(false);
 
-  const id = this.props.match.params.id;
+  const id = props.match.params.id;
   console.log(id);
 
   const EditTask = () => {

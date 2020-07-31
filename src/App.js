@@ -26,7 +26,7 @@ class App extends React.Component {
                   path="/posts/:id"
                   render={(props) => <Note {...props} />}
                 />
-                {/* <Route path="/posts/edit" component={EditNote} /> */}
+                <Route path="/posts/edit" component={EditNote} />
                 <Route path="*" component={Page404} />
               </Switch>
             </div>

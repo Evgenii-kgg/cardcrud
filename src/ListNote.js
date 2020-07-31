@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, withRouter } from "react-router-dom";
 import "./App.css";
 
 import List from "./List";
@@ -7,7 +7,7 @@ import List from "./List";
 import { netWorkService } from "./api";
 import NoteContext from './NoteContext';
 
-function ListNote({match}) {
+function ListNote(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemList, setItemList] = useState([]);
 //   const [selectItem, setSelectItem] = useState(undefined);
@@ -28,8 +28,10 @@ function ListNote({match}) {
     }
   });
 
+console.log(props);
+
   const onSelectItem = (item) => {
-    return 
+    props.history.push(`/posts/${item}`)    
   }
 
  const noteId = useContext(NoteContext)
@@ -44,7 +46,6 @@ function ListNote({match}) {
             Создать пост
         </button>
         </Link>
-        <h1>{`id №${match.params.id}`}</h1>
 
       <List
       onSelectItem={onSelectItem}
@@ -54,4 +55,4 @@ function ListNote({match}) {
     </div>
   );
 }
-export default ListNote;
+export default withRouter(ListNote);
