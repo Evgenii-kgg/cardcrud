@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link,
-  Redirect,
   withRouter,
 } from "react-router-dom";
 import { netWorkService } from "./api";
@@ -17,7 +13,6 @@ class CreateNote extends React.Component {
     super(props);
     this.state = {
       note: "",
-      redirect: false,
     };
   }
 
@@ -40,7 +35,6 @@ class CreateNote extends React.Component {
   };
 
   render() {
-    const { redirect } = this.state;
 
     return (
       <div className="CreateNote">

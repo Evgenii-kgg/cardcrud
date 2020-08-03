@@ -1,23 +1,16 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter,
-} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { netWorkService } from "./api";
 
-
-class CreateNote extends React.Component {
+class EditNote extends React.Component {
   constructor(props) {
     console.log(props);
-    
     super(props);
     this.state = {
-      note: "",
-    };
+      note: this.title,
+    }
   }
+  
 
   handleChangeNote = (event) => {
     this.setState({
@@ -25,38 +18,43 @@ class CreateNote extends React.Component {
     });
   };
 
+  id = this.props.match.params.id;
+  title = this.props.match.params.title;
+
   PostTasks = () => {
     netWorkService({
       url: "posts",
       method: "POST",
-      body: { id: 5, content: this.state.note },
+      body: { id: `${this.id}`, content: this.state.note },
     })
       .then((response) => {
-        console.log("fsfs", response);
+        console.log("EditNote", response);
       })
-      // .then(() => this.props.history.push(`/posts/${id}`));
+      .then(() => console.log(this.props.history.push(`/posts/${this.id}${this.state.note}`))
+       );
+  };
+
+  ChangeTasks = () => {
+    return this.props.history.push(`/posts/${this.id}${this.title}`);
   };
 
   render() {
-    const { redirect } = this.state;
     console.log(this.props);
-    
 
     return (
-      <div className="CreateNote">
+      <div className="EditNote">
         <h1>Редактировать публикацию</h1>
+        <h1>ID:{this.id}</h1>
         <input
           type="text"
           name="name"
           value={this.state.note}
           onChange={(event) => this.handleChangeNote(event.target.value)}
         />
-        <button onClick={this.PostTasks}>Редактировать</button>
-        <Link to="/">
-          <button>x</button>
-        </Link>
+        <button onClick={this.PostTasks}>Сохранить</button>
+          <button onClick={this.ChangeTasks}>x</button>
       </div>
     );
   }
 }
-export default withRouter(CreateNote);
+export default withRouter(EditNote);

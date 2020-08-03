@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from "react";
 import "./App.css";
-import NoteContext from "./NoteContext";
+//import NoteContext from "./NoteContext";
 
 function List(props) {
   console.log(props);
@@ -14,7 +13,7 @@ function List(props) {
   
     return itemList?.map((item)=> {
         return (
-            <div onClick={()=> props.onSelectItem(item.id) } >{item.content} </div>
+            <div className ="list-group-item" onClick={()=> props.onSelectItem(item.id, item.content)} key={item.id} >{item.content} </div>
         )
     })
   

@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, withRouter } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, withRouter } from "react-router-dom";
 import "./App.css";
 
 import List from "./List";
 
 import { netWorkService } from "./api";
-import NoteContext from './NoteContext';
+// import NoteContext from './NoteContext';
 
 function ListNote(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [itemList, setItemList] = useState([]);
-//   const [selectItem, setSelectItem] = useState(undefined);
 
   const getTasks = () => {
-    return netWorkService({ url: "posts", method: "GET" }).then(
-      (response) => {
-        console.log("ответ", response);
-        setIsLoaded(true);
-        setItemList(response); // проверить
-      }
-    );
+    return netWorkService({ url: "posts", method: "GET" }).then((response) => {
+      console.log("ответ", response);
+      setIsLoaded(true);
+      setItemList(response);
+    });
   };
 
   useEffect(() => {
@@ -28,30 +25,22 @@ function ListNote(props) {
     }
   });
 
-console.log(props);
+  console.log(props);
 
-  const onSelectItem = (item) => {
-    props.history.push(`/posts/${item}`)    
-  }
-
- const noteId = useContext(NoteContext)
-
-  // const note = noteId.find(o => o.id === match.params.id)
-  
+  const onSelectItem = (item, title) => {
+    props.history.push(`/posts/${item}${title}`);
+  };
 
   return (
     <div>
-        <Link to="/posts/new">
-        <button  >
-            Создать пост
-        </button>
-        </Link>
-
-      <List
-      onSelectItem={onSelectItem}
-        items={itemList}
-        isLoaded={isLoaded}
-      />
+      <Link to="/posts/new">
+        <button>Создать пост</button>
+      </Link>
+      <div className="card" style={{marginLeft: "300px", marginRight: "300px"}}>
+      <div className="list-group list-group-flush">
+      <List onSelectItem={onSelectItem} items={itemList} isLoaded={isLoaded} />
+      </div>
+      </div>
     </div>
   );
 }
